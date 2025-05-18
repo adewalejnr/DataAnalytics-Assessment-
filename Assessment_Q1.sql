@@ -34,6 +34,6 @@ SELECT
     ROUND(s.savings_deposits_naira
         + i.investment_deposits_naira, 2)         AS total_deposits
 FROM        savings      s
-INNER JOIN  investment   i ON i.owner_id = s.owner_id     -- must have both
+INNER JOIN  investment   i ON i.owner_id = s.owner_id     -- To return only customers with both Saving and Investment Plans
 INNER JOIN  users_customuser u ON u.id = s.owner_id
 ORDER BY     total_deposits DESC;
