@@ -52,18 +52,17 @@ Operations can now prioritise outreach to dormant account holders to re-activate
 1. Computed the customer’s tenure in months from `date_joined` to the current date using `TIMESTAMPDIFF`.  
 2. Counted total transactions and averaged the monetary value of those transactions (converted to Naira).  
 3. Applied the simplified formula  
-   \[
-\text{CLV} \;=\;
+   $$
+\text{CLV} =
 \left(
-    \frac{\text{total\_transactions}}
-         {\text{tenure\_months}}
+  \frac{\text{total\_transactions}}
+       {\text{tenure\_months}}
 \right)
-\times 12
-\times
+\times 12 \times
 \left(
-    \text{avg\_transaction\_value} \times 0.001
+  \text{avg\_transaction\_value} \times 0.001
 \right)
-\] 
+$$ 
    The 0.001 multiplier implements the 0.1 % profit assumption.  
 4. Protected against zero-month tenure with `NULLIF`, rounded the result to two decimals, and listed customers from highest to lowest CLV.
 
