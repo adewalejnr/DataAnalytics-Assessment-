@@ -1,16 +1,5 @@
-# DataAnalytics-Assessment-
-
-# Data Analytics – SQL Proficiency Assessment  
+# DataAnalytics-Assessment  
 **Author:** *Nurudeen Abiodun Babalola*
-
----
-
-## Executive Summary  
-
-This document reports the methodology I followed to solve the four SQL business-case questions supplied in the assessment dataset.  
-My goal was to produce accurate, efficient, and well-documented queries while respecting the business rules set out in the “Hints” section (e.g., using `is_regular_savings`, working in kobo, treating `owner_id` as a foreign key, etc.).
-
-The final deliverables consist of four standalone `.sql` files—one per question—plus this report.
 
 ---
 
@@ -19,7 +8,7 @@ The final deliverables consist of four standalone `.sql` files—one per questio
 ### Q1 – Cross-Selling: Customers with Both Funded Savings and Investment Plans  
 
 **What I did**  
-1. Wrote two common-table expressions (CTEs) to summarise funded **savings** and **investment** plans separately.  
+1. Wrote two common-table expressions (CTEs) to separately summarise funded **savings** and **investment** plans.  
    * Savings plans were identified with `is_regular_savings = 1`; investments with `is_a_fund = 1`.  
    * Only transactions with a positive `confirmed_amount` were counted, ensuring plans were genuinely funded.  
 2. Joined the two CTEs on `owner_id`; this intersection yields customers who hold at least one of each product.  
@@ -79,12 +68,11 @@ This approximation surfaces customers whose behaviour drives disproportionate li
 
 | Challenge | Resolution |
 |-----------|------------|
-| **Unit conversion** – All monetary values were stored in kobo, risking inflated metrics. | Divided by 100 wherever monetary aggregates were required. |
-| **Plan typing** – Savings vs. investment products reside in the same table. | Followed the hint flags: `is_regular_savings` and `is_a_fund` to isolate plan categories. |
-| **NULL handling** – Some plans had no transactions; some customers had zero tenure months. | Used `LEFT JOIN` plus `NULLIF` and conditional filters to avoid divide-by-zero errors and to keep dormant entities visible. |
-| **Ordering NULLs last in MySQL** (no `NULLS LAST` keyword). | Added boolean expressions in `ORDER BY` to push NULL values to the end of result sets. |
+| **Unit conversion** – All monetary values were stored in kobo, risking inflated metrics. | I divided by 100 wherever monetary aggregates were required. |
+| **Plan typing** – Savings vs. investment products reside in the same table. | I followed the hint flags: `is_regular_savings` and `is_a_fund` to isolate plan categories. |
+| **NULL handling** – Some plans had no transactions; some customers had zero tenure months. | I used `LEFT JOIN` plus `NULLIF` and conditional filters to avoid divide-by-zero errors and to keep dormant entities visible. |
+| **Ordering NULLs last in MySQL** (no `NULLS LAST` keyword). | I added boolean expressions in `ORDER BY` to push NULL values to the end of result sets. |
 
 ---
-
-## File Manifest  
+  
 
